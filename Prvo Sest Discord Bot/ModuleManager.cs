@@ -20,7 +20,8 @@ namespace DiscordBot
 
         public static void SetupModules(DiscordSocketClient socketClient, IServiceCollection serviceCollection, ref IServiceProvider serviceProvider)
         {
-            managmentModule = new ServerManagmentModule(socketClient, 659161580013092875, Static.Color, Static.Prefix, "1/6", "");
+            managmentModule = new ServerManagmentModule(socketClient, 659161580013092875, Static.Color, Static.Prefix, "1/6", 
+                $"`{Static.Prefix}advance-hall-monitor` - Prebacuje <#659343822127497216> na sledecu nedelju");
             colorReactModule = new ColorReactModule(socketClient, Static.Color, Static.Prefix);
             hallMonitorModule = new HallMonitorModule(socketClient, Static.Color, Static.Prefix);
 
