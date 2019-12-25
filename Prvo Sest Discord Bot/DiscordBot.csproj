@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Bindings\Bindings.csproj" />
     <ProjectReference Include="..\BotAudioModule\BotAudioModule.csproj" />
     <ProjectReference Include="..\BotColorReactModule\BotColorReactModule.csproj" />
     <ProjectReference Include="..\BotHallMonitorModule\BotHallMonitorModule.csproj" />
@@ -21,7 +22,5 @@
     <Folder Include="Commands\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
-
-  <Import Project="..\Bindings\Bindings.projitems" Label="Shared" />
 
 </Project>

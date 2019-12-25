@@ -8,6 +8,8 @@
     <PackageReference Include="MySql.Data" Version="8.0.18" />
   </ItemGroup>
 
-  <Import Project="..\Bindings\Bindings.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\Bindings\Bindings.csproj" />
+  </ItemGroup>
 
 </Project>
