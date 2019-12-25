@@ -3,15 +3,24 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiscordBot", "Prvo Sest Discord Bot\DiscordBot.csproj", "{84A5BD71-59C7-4475-AF0E-300FB0979038}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiscordBot", "Prvo Sest Discord Bot\DiscordBot.csproj", "{84A5BD71-59C7-4475-AF0E-300FB0979038}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotAudioModule", "BotAudioModule\BotAudioModule.csproj", "{80B32DE8-C4C9-4A9B-89C0-6C0A0A7EABF0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotServerManagmentModule", "BotServerManagmentModule\BotServerManagmentModule.csproj", "{D4A6A58D-2570-45C2-A40C-9C82F8D27F64}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotColorReactModule", "BotColorReactModule\BotColorReactModule.csproj", "{56B72DB8-36C4-47D3-B49A-CAE6A0A3CDC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotColorReactModule", "BotColorReactModule\BotColorReactModule.csproj", "{56B72DB8-36C4-47D3-B49A-CAE6A0A3CDC4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotHallMonitorModule", "BotHallMonitorModule\BotHallMonitorModule.csproj", "{FB2F150C-C913-4BDD-8FD1-1EF0C642556A}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bindings", "Bindings\Bindings.shproj", "{A8D34391-17A5-4E93-B837-4CEC1362610B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseController", "DatabaseController\DatabaseController.csproj", "{84509DEA-F3C3-4401-90E3-65619E2B991E}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Bindings\Bindings.projitems*{a8d34391-17a5-4e93-b837-4cec1362610b}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -33,6 +42,14 @@ Global
 		{56B72DB8-36C4-47D3-B49A-CAE6A0A3CDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56B72DB8-36C4-47D3-B49A-CAE6A0A3CDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56B72DB8-36C4-47D3-B49A-CAE6A0A3CDC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB2F150C-C913-4BDD-8FD1-1EF0C642556A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB2F150C-C913-4BDD-8FD1-1EF0C642556A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB2F150C-C913-4BDD-8FD1-1EF0C642556A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB2F150C-C913-4BDD-8FD1-1EF0C642556A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84509DEA-F3C3-4401-90E3-65619E2B991E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84509DEA-F3C3-4401-90E3-65619E2B991E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84509DEA-F3C3-4401-90E3-65619E2B991E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84509DEA-F3C3-4401-90E3-65619E2B991E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

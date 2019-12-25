@@ -6,7 +6,7 @@ namespace BotServerManagmentModule.Commands
 {
     public class StaffHelp : ModuleBase<SocketCommandContext>
     {
-        [Command("help-staff"), RequireUserPermission(GuildPermission.Administrator)]
+        [Command("help-admin"), RequireUserPermission(ChannelPermission.ManageChannels)]
         public async Task CommandAsync()
         {
             EmbedBuilder builder = new EmbedBuilder();

@@ -3,12 +3,8 @@ using System.Threading.Tasks;
 using Discord.WebSocket;
 using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 using Discord;
-using BotAudioModule;
-using DiscordBot.Scripts;
-using BotServerManagmentModule;
-using BotColorReactModule;
+using Bindings;
 
 namespace DiscordBot
 {
@@ -18,10 +14,6 @@ namespace DiscordBot
         DiscordSocketClient socketClient;
         CommandService commandService;
         IServiceProvider serviceProvider;
-
-        AudioModule audioModule;
-        ServerManagmentModule managmentModule;
-        ColorReactModule colorReactModule;
 
         string botToken = "NjU5MTQwMTA0NDAwNjY2NjI0.XgKA_g.iXEEfZ4mjVvJ86e3l_AQNQRWB58";
         #endregion
@@ -34,8 +26,7 @@ namespace DiscordBot
         #region Tasks
         public async Task RunBot()
         {
-            DiscordSocketConfig config = new DiscordSocketConfig
-            { MessageCacheSize = 100, AlwaysDownloadUsers = true };
+            DiscordSocketConfig config = new DiscordSocketConfig { MessageCacheSize = 100, AlwaysDownloadUsers = true };
 
             socketClient = new DiscordSocketClient(config);
             commandService = new CommandService();
@@ -44,12 +35,7 @@ namespace DiscordBot
                 .AddSingleton(socketClient)
                 .AddSingleton(commandService);
 
-            managmentModule = new ServerManagmentModule(socketClient, 659161580013092875, Static.Color, Static.Prefix, "1/6", "");
-            colorReactModule = new ColorReactModule(socketClient, Static.Color, Static.Prefix);
-
-            audioModule = new AudioModule(socketClient, serviceCollection, Static.Color, Static.Prefix);
-            serviceProvider = serviceCollection.BuildServiceProvider();
-            audioModule.FinalInit(serviceProvider);
+            ModuleManager.SetupModules(socketClient, serviceCollection, ref serviceProvider);
 
             socketClient.Log += Log;
 
@@ -76,10 +62,7 @@ namespace DiscordBot
         public async Task RegisterCommanedsAsync()
         {
             socketClient.MessageReceived += HandleMessageRecieved;
-            await commandService.AddModulesAsync(Assembly.GetEntryAssembly(), serviceProvider);
-            await commandService.AddModulesAsync(typeof(AudioModule).Assembly, serviceProvider);
-            await commandService.AddModulesAsync(typeof(ServerManagmentModule).Assembly, serviceProvider);
-            await commandService.AddModulesAsync(typeof(ColorReactModule).Assembly, serviceProvider);
+            await ModuleManager.RegisterModuleCommands(commandService, serviceProvider);
         }
 
         private async Task HandleMessageRecieved(SocketMessage arg)

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DiscordBot.Scripts
+namespace Bindings
 {
     public static class Logger
     {

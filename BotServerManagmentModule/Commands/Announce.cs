@@ -8,7 +8,7 @@ namespace BotServerManagmentModule.Commands
 {
     public class Announce : ModuleBase<SocketCommandContext>
     {
-        [Command("announce"), RequireUserPermission(GuildPermission.Administrator)]
+        [Command("announce"), RequireUserPermission(ChannelPermission.ManageMessages)]
         async Task CommandTask(ISocketMessageChannel channel, string title, [Remainder]string message)
         {
             EmbedBuilder builder = new EmbedBuilder();

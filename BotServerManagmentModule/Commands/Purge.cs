@@ -8,11 +8,9 @@ namespace BotServerManagmentModule
 {
     public class Purge : ModuleBase<SocketCommandContext>
     {
-        [Command("purge", RunMode = RunMode.Async), RequireUserPermission(GuildPermission.Administrator)]
+        [Command("purge", RunMode = RunMode.Async), RequireUserPermission(ChannelPermission.ManageMessages)]
         async Task Command([Remainder]int ammount = 0)
         {
-            Console.WriteLine("Purging");
-
             SocketGuildUser user = Context.User as SocketGuildUser;
             if (user.GuildPermissions.ManageMessages == false && user.Id != 272472106380558336)
                 return;
@@ -28,7 +26,7 @@ namespace BotServerManagmentModule
             await (Context.Channel as ITextChannel).DeleteMessagesAsync(messages);
         }
 
-        [Command("purge", RunMode = RunMode.Async), RequireUserPermission(GuildPermission.Administrator)]
+        [Command("purge", RunMode = RunMode.Async), RequireUserPermission(ChannelPermission.ManageMessages)]
         async Task CommandAll([Remainder]string input = "")
         {
             if (Context.Guild.Name != "Magical Daggers")
