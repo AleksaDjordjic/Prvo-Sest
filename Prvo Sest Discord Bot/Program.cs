@@ -5,6 +5,7 @@ using Discord.Commands;
 using Microsoft.Extensions.DependencyInjection;
 using Discord;
 using Bindings;
+using DatabaseController.DatabaseAccessors;
 
 namespace DiscordBot
 {
@@ -26,6 +27,18 @@ namespace DiscordBot
         #region Tasks
         public async Task RunBot()
         {
+            Logger.Log("Testing Database Connection", "Test");
+            try
+            {
+                Students.GetAllStudents();
+                Logger.Log("Database Working", "Test");
+            }
+            catch (Exception e)
+            {
+                Logger.Log("Database Failed", "Test");
+                Logger.Log(e.ToString(), "Exception", ConsoleColor.Red);
+            }
+
             DiscordSocketConfig config = new DiscordSocketConfig { MessageCacheSize = 100, AlwaysDownloadUsers = true };
 
             socketClient = new DiscordSocketClient(config);
