@@ -8,7 +8,7 @@ namespace DiscordBot.Commands
     public class Students : ModuleBase<SocketCommandContext>
     {
         [Alias("mucenici", "students", "mučenici", "učenici")]
-        [Command("ucenici")]
+        [Command("ucenici", RunMode = RunMode.Async)]
         public async Task CommandTask()
         {
             var students = DatabaseController.DatabaseAccessors.Students.GetAllStudents();
@@ -27,7 +27,7 @@ namespace DiscordBot.Commands
         }
 
         [Alias("mucenik", "student", "mučenik", "učenik")]
-        [Command("ucenik")]
+        [Command("ucenik", RunMode = RunMode.Async)]
         public async Task CommandTaskByID(int id)
         {
             if(id <= 0)
@@ -53,7 +53,7 @@ namespace DiscordBot.Commands
         }
 
         [Alias("mucenik", "student", "mučenik", "učenik")]
-        [Command("ucenik")]
+        [Command("ucenik", RunMode = RunMode.Async)]
         public async Task CommandTaskByID(SocketUser user)
         {
             var student = DatabaseController.DatabaseAccessors.Students.GetStudentByDiscordID(user.Id);
@@ -73,7 +73,7 @@ namespace DiscordBot.Commands
         }
 
         [Alias("me")]
-        [Command("ja")]
+        [Command("ja", RunMode = RunMode.Async)]
         public async Task CommandTaskByID()
         {
             var student = DatabaseController.DatabaseAccessors.Students.GetStudentByDiscordID(Context.User.Id);
