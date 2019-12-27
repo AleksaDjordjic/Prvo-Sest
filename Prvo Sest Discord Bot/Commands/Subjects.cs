@@ -6,6 +6,7 @@ namespace DiscordBot.Commands
 {
     public class Subjects : ModuleBase<SocketCommandContext>
     {
+        [Alias("subjects")]
         [Command("predmeti", RunMode = RunMode.Async)]
         public async Task CommandTask()
         {
