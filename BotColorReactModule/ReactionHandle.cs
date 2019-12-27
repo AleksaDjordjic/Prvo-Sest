@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.WebSocket;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,10 +10,7 @@ namespace BotColorReactModule
     {
         public static Task SocketClient_ReactionAdded(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
         {
-            if (message.HasValue == false)
-                return Task.CompletedTask;
-
-            if (message.Value.Id != ColorReactModule.ColorReactionMessageID)
+            if (reaction.MessageId != ColorReactModule.ColorReactionMessageID)
                 return Task.CompletedTask;
 
             switch (reaction.Emote.Name)
@@ -78,10 +76,7 @@ namespace BotColorReactModule
 
         public static Task SocketClient_ReactionRemoved(Cacheable<IUserMessage, ulong> message, ISocketMessageChannel channel, SocketReaction reaction)
         {
-            if (message.HasValue == false)
-                return Task.CompletedTask;
-
-            if (message.Value.Id != ColorReactModule.ColorReactionMessageID)
+            if (reaction.MessageId != ColorReactModule.ColorReactionMessageID)
                 return Task.CompletedTask;
 
             switch (reaction.Emote.Name)
