@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using System.Threading.Tasks;
 
 namespace DiscordBot.Commands
@@ -25,7 +26,7 @@ namespace DiscordBot.Commands
             await ReplyAsync("", false, embed.Build());
         }
 
-        [Alias("mucenk", "student", "mučenik", "učenik")]
+        [Alias("mucenik", "student", "mučenik", "učenik")]
         [Command("ucenik")]
         public async Task CommandTaskByID(int id)
         {
@@ -39,6 +40,46 @@ namespace DiscordBot.Commands
             if(student == null)
             {
                 await ReplyAsync("Invalid ID!");
+                return;
+            }
+
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.WithTitle($"Učenik #{student.ID}")
+                .WithColor(Static.Color)
+                .WithDescription($"{student.FirstName} {student.LastName} - <@{student.DiscordID}>")
+                .WithCurrentTimestamp();
+
+            await ReplyAsync("", false, embed.Build());
+        }
+
+        [Alias("mucenik", "student", "mučenik", "učenik")]
+        [Command("ucenik")]
+        public async Task CommandTaskByID(SocketUser user)
+        {
+            var student = DatabaseController.DatabaseAccessors.Students.GetStudentByDiscordID(user.Id);
+            if (student == null)
+            {
+                await ReplyAsync("Invalid Discord!");
+                return;
+            }
+
+            EmbedBuilder embed = new EmbedBuilder();
+            embed.WithTitle($"Učenik #{student.ID}")
+                .WithColor(Static.Color)
+                .WithDescription($"{student.FirstName} {student.LastName} - <@{student.DiscordID}>")
+                .WithCurrentTimestamp();
+
+            await ReplyAsync("", false, embed.Build());
+        }
+
+        [Alias("me")]
+        [Command("ja")]
+        public async Task CommandTaskByID()
+        {
+            var student = DatabaseController.DatabaseAccessors.Students.GetStudentByDiscordID(Context.User.Id);
+            if (student == null)
+            {
+                await ReplyAsync("Invalid Discord!");
                 return;
             }
 
