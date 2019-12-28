@@ -1,6 +1,8 @@
 ﻿using BotAudioModule;
 using BotColorReactModule;
 using BotHallMonitorModule;
+using BotMiscellaneousModule;
+using BotSchoolModule;
 using BotServerManagmentModule;
 using Discord.Commands;
 using Discord.WebSocket;
@@ -14,9 +16,10 @@ namespace DiscordBot
     public static class ModuleManager
     {
         public static AudioModule audioModule;
-        public static ServerManagmentModule managmentModule;
+        public static SchoolModule schoolModule;
         public static ColorReactModule colorReactModule;
         public static HallMonitorModule hallMonitorModule;
+        public static ServerManagmentModule managmentModule;
         public static MiscellaneousModule miscellaneousModule;
 
         public static void SetupModules(DiscordSocketClient socketClient, IServiceCollection serviceCollection, ref IServiceProvider serviceProvider)
@@ -24,6 +27,7 @@ namespace DiscordBot
             managmentModule = new ServerManagmentModule(socketClient, 659161580013092875, Static.Color, Static.Prefix, "1/6",
                 @"https://cdn.discordapp.com/attachments/659186662819233831/659191565985644555/1-6_Logo.png", 
                 $"`{Static.Prefix}advance-hall-monitor` - Prebacuje <#659343822127497216> na sledecu nedelju");
+            schoolModule = new SchoolModule(socketClient, Static.Color, Static.Prefix);
             colorReactModule = new ColorReactModule(socketClient, Static.Color, Static.Prefix);
             hallMonitorModule = new HallMonitorModule(socketClient, Static.Color, Static.Prefix);
             miscellaneousModule = new MiscellaneousModule(socketClient, Static.Color, Static.Prefix);
@@ -37,10 +41,11 @@ namespace DiscordBot
         {
             await commandService.AddModulesAsync(Assembly.GetEntryAssembly(), serviceProvider);
             await commandService.AddModulesAsync(typeof(AudioModule).Assembly, serviceProvider);
-            await commandService.AddModulesAsync(typeof(ServerManagmentModule).Assembly, serviceProvider);
+            await commandService.AddModulesAsync(typeof(SchoolModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(ColorReactModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(HallMonitorModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(MiscellaneousModule).Assembly, serviceProvider);
+            await commandService.AddModulesAsync(typeof(ServerManagmentModule).Assembly, serviceProvider);
         }
     }
 }
