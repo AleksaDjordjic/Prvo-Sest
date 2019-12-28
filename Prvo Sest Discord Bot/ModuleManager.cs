@@ -1,5 +1,6 @@
 ﻿using BotAudioModule;
 using BotColorReactModule;
+using BotFunModule;
 using BotHallMonitorModule;
 using BotMiscellaneousModule;
 using BotSchoolModule;
@@ -15,6 +16,7 @@ namespace DiscordBot
 {
     public static class ModuleManager
     {
+        public static FunModule funModule;
         public static AudioModule audioModule;
         public static SchoolModule schoolModule;
         public static ColorReactModule colorReactModule;
@@ -27,6 +29,7 @@ namespace DiscordBot
             managmentModule = new ServerManagmentModule(socketClient, 659161580013092875, Static.Color, Static.Prefix, "1/6",
                 @"https://cdn.discordapp.com/attachments/659186662819233831/659191565985644555/1-6_Logo.png", 
                 $"`{Static.Prefix}advance-hall-monitor` - Prebacuje <#659343822127497216> na sledecu nedelju");
+            funModule = new FunModule(socketClient, Static.Color, Static.Prefix);
             schoolModule = new SchoolModule(socketClient, Static.Color, Static.Prefix);
             colorReactModule = new ColorReactModule(socketClient, Static.Color, Static.Prefix);
             hallMonitorModule = new HallMonitorModule(socketClient, Static.Color, Static.Prefix);
@@ -40,6 +43,7 @@ namespace DiscordBot
         public static async Task RegisterModuleCommands(CommandService commandService, IServiceProvider serviceProvider)
         {
             await commandService.AddModulesAsync(Assembly.GetEntryAssembly(), serviceProvider);
+            await commandService.AddModulesAsync(typeof(FunModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(AudioModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(SchoolModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(ColorReactModule).Assembly, serviceProvider);
