@@ -1,44 +1,42 @@
-﻿using Discord.Commands;
-using Discord.WebSocket;
-using System;
+﻿using BotAudioModule.Scripts;
+using Discord;
+using Discord.Commands;
 using System.Threading.Tasks;
+using System.Linq;
+using Discord.WebSocket;
 
 namespace BotAudioModule.Commands
 {
-    public class Clear : ModuleBase<SocketCommandContext>
+    public class Clear : MusicCommand
     {
+        public Clear(AudioService audioService) : base(audioService)
+        {
+        }
+
         [Alias("stop", "empty")]
         [Command("clear")]
         public async Task CommandTask()
         {
-            SocketGuildUser executionUser = (SocketGuildUser)Context.User;
-            if (AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id).VoiceChannel == null)
+            if (await CheckVoiceChannel() == false)
+                return;
+
+            var player = AudioService.LavaClient.GetPlayer(Context.Guild.Id);
+            var channel = player.VoiceChannel;
+            var users = (await channel.GetUsersAsync().FlattenAsync()).ToList();
+
+            if(users.Count > 2 && ((SocketGuildUser)Context.User).GuildPermissions.Administrator == false)
             {
-                await ReplyAsync("Bot isn't connected to a channel at the moment...");
+                await Context.Channel.SendErrorEmbed(
+                    "There are multiple people in this Voice Channel, command has been disabled!\n" +
+                    "You need to have Administrator Permissions to execute this command.");
                 return;
             }
 
-            if (executionUser.VoiceChannel == null || executionUser.VoiceChannel != AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id).VoiceChannel)
-            {
-                await ReplyAsync("You cannot perform this command while not in the voice channel!");
-                return;
-            }
+            if (player.IsPlaying)
+                await player.StopAsync();
 
-            try
-            {
-                var player = AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id);
-                if (player == null)
-                    await ReplyAsync($"Music is not playing...");
-                if (player.IsPlaying)
-                    await player.StopAsync();
-                player.Queue.Clear();
-                await ReplyAsync("Playback stopped, queue cleared");
-                AudioModule.audioService.loopCurrentSong = false;
-            }
-            catch (Exception ex)
-            {
-                await ReplyAsync("Uh, oh ... ahem OOF ... an error occurred :\n```" + ex.ToString() + "```\n <@272472106380558336> ...?");
-            }
+            player.Queue.Clear();
+            await ReplyAsync("Playback stopped, queue cleared");
         }
     }
 }

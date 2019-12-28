@@ -1,9 +1,8 @@
 ﻿using Discord.WebSocket;
 using System;
-using System.Threading.Tasks;
-using Victoria;
 using Microsoft.Extensions.DependencyInjection;
 using Discord;
+using Victoria;
 
 namespace BotAudioModule
 {
@@ -14,7 +13,6 @@ namespace BotAudioModule
         public static Color messageColor;
 
         IServiceProvider serviceProvider;
-        private readonly LavaNode _lavaNode;
 
         public AudioModule(DiscordSocketClient _socketClient, IServiceCollection serviceCollection, Color _messageColor, string _botPrefix)
         {
@@ -23,19 +21,14 @@ namespace BotAudioModule
             botPrefix = _botPrefix;
 
             serviceCollection
-                .AddSingleton<LavaConfig>()
-                .AddSingleton<LavaNode>();
-
-            socketClient.Ready += SocketClient_Ready;
-
-            _lavaNode = new LavaNode(socketClient, new LavaConfig() { });
+                .AddSingleton<LavaRestClient>()
+                .AddSingleton<LavaSocketClient>()
+                .AddSingleton<AudioService>();
         }
 
         public void FinalInit(IServiceProvider serviceProvider)
         {
-            
+            serviceProvider.GetRequiredService<AudioService>().InitializeAsync();
         }
-
-        public async Task SocketClient_Ready() => _lavaNode.ConnectAsync();
     }
 }

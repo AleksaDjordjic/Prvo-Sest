@@ -1,71 +1,24 @@
-﻿using Discord;
+﻿using BotAudioModule.Scripts;
 using Discord.Commands;
 using Discord.WebSocket;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Victoria;
-
-using BotAudioModule;
-using Victoria.Enums;
+using Victoria.Entities;
 
 namespace BotAudioModule.Commands
 {
-    public class Play : ModuleBase<SocketCommandContext>
+    public class Play : MusicCommand
     {
-        /*private readonly LavaNode _lavaNode;
-
-        public Play(LavaNode lavaNode)
+        public Play(AudioService audioService) : base(audioService)
         {
-            _lavaNode = lavaNode;
         }
 
-        [Command("Play")]
-        public async Task PlayAsync([Remainder] string query)
-        {
-            var search = await _lavaNode.SearchYouTubeAsync(query);
-            var track = search.Tracks.FirstOrDefault();
-
-            var player = _lavaNode.HasPlayer(Context.Guild)
-                ? _lavaNode.GetPlayer(Context.Guild)
-                : await _lavaNode.JoinAsync(((SocketGuildUser)Context.User).VoiceChannel, (ITextChannel)Context.Channel);
-
-            if (player.PlayerState == PlayerState.Playing)
-            {
-                player.Queue.Enqueue(track);
-                await ReplyAsync($"Enqeued {track.Title}.");
-            }
-            else
-            {
-                try
-                {
-                    await player.PlayAsync(track);
-                }
-                catch (Exception e)
-                {
-                    await ReplyAsync(e.ToString());
-                    await ReplyAsync("Exception player.PlayAsync(track);");
-                    await ReplyAsync((track == null).ToString());
-                    await ReplyAsync((player == null).ToString());
-                }
-                await ReplyAsync($"Playing {track.Title}.");
-            }
-        }*/
-
-        /*[Alias("request", "play", "p")]
+        [Alias("request", "play", "p")]
         [Command("songrequest", RunMode = RunMode.Async)]
-        async Task RequestYoutube([Remainder] string searchTerm = "")
+        async Task Request([Remainder]string searchTerm = "")
         {
             if (ValidSearch(searchTerm))
-                await Search(searchTerm, false);
-        }
-
-        [Alias("request-sc", "play-sc", "p-sc")]
-        [Command("songrequest-soundcloud", RunMode = RunMode.Async)]
-        async Task RequestSoundcloud([Remainder] string searchTerm = "")
-        {
-            if(ValidSearch(searchTerm))
-                await Search(searchTerm, true);
+                await PlayQuery(searchTerm);
         }
 
         bool ValidSearch(string searchTerm)
@@ -74,13 +27,11 @@ namespace BotAudioModule.Commands
 
             if (user.VoiceChannel != null)
             {
-                if (AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id) != null)
+                if (AudioService.LavaClient.GetPlayer(Context.Guild.Id) != null &&
+                    user.VoiceChannel != AudioService.LavaClient.GetPlayer(Context.Guild.Id).VoiceChannel)
                 {
-                    if (user.VoiceChannel != AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id).VoiceChannel)
-                    {
-                        ReplyAsync("You cannot perform this command while not in the voice channel!");
-                        return false;
-                    }
+                    ReplyAsync("You cannot perform this command while not in a voice channel!");
+                    return false;
                 }
             }
             else
@@ -90,83 +41,39 @@ namespace BotAudioModule.Commands
             }
 
             if (searchTerm == "")
-            {
-                ReplyAsync("Please input what you want to search for...");
                 return false;
-            }
 
             return true;
         }
 
-        async Task Search(string searchTerm, bool soundcloud, bool options = false)
+        async Task PlayQuery(string query)
         {
+            if (await CheckVoiceChannel(false, true) == false)
+                return;
+
             SocketGuildUser user = (SocketGuildUser)Context.User;
+            var player = AudioService.LavaClient.GetPlayer(Context.Guild.Id);
 
-            try
+            var search = await AudioService.LavaRestClient.SearchYouTubeAsync(query);
+            if (search.LoadType == LoadType.NoMatches || search.LoadType == LoadType.LoadFailed)
             {
-                Lavalink _lavalink = AudioModule.audioService._lavalink;
-                var player = _lavalink.DefaultNode.GetPlayer(Context.Guild.Id);
-                if (player == null)
-                {
-                    await _lavalink.DefaultNode.ConnectAsync(user.VoiceChannel, Context.Message.Channel);
-                    AudioModule.audioService.Options.TryAdd(user.Guild.Id, new AudioOptions
-                    {
-                        Summoner = user
-                    });
-                    player = _lavalink.DefaultNode.GetPlayer(Context.Guild.Id);
-                }
+                await Context.Channel.SendErrorEmbed("No Matches Found!");
+                return;
+            }
 
-                LavaTrack track;
-                LavaResult search;
-                if (soundcloud)
-                    search = await _lavalink.DefaultNode.SearchSoundcloudAsync(searchTerm);
-                else
-                    search = await _lavalink.DefaultNode.SearchYouTubeAsync(searchTerm);
+            //TODO: Add a 1-5 list for the user to pick from. (Like Fredboat)
+            var track = search.Tracks.FirstOrDefault();
 
-                if (search == null || search.LoadResultType == LoadResultType.NoMatches)
-                {
-                    await ReplyAsync($"No matches found for `{searchTerm}` ... try again?");
-                    return;
-                }
-
-                //TODO: Add a 1-5 list for the user to pick from. (Like Fredboat)
-                track = search.Tracks.FirstOrDefault();
-
-                EmbedBuilder builder;
-
-                if (player.CurrentTrack != null && player.IsPlaying || player.IsPaused)
-                {
-                    player.Queue.Enqueue(track);
-
-                    builder = new EmbedBuilder();
-                    builder.WithTitle("Song Added To Queue")
-                        .WithColor(AudioModule.messageColor)
-                        .WithCurrentTimestamp()
-                        .AddField(track.Author, $"[{track.Title}]({track.Uri})\n {track.Length.ToString(@"hh\:mm\:ss")}")
-                        .WithThumbnailUrl(AudioService.GetYoutubeVideoThumbnailLink(track.Uri));
-
-                    await ReplyAsync("", false, builder.Build());
-                    return;
-                }
-
+            if(player.IsPlaying)
+            {
+                player.Queue.Enqueue(track);
+                await Context.Channel.SendAddedToQueueEmbed(track);
+            }
+            else
+            {
                 await player.PlayAsync(track);
-
-                LavaTrack lp = player.CurrentTrack;
-
-                builder = new EmbedBuilder();
-                builder.WithTitle("Currently Playing")
-                    .WithColor(AudioModule.messageColor)
-                    .AddField(lp.Author, $"[{lp.Title}]({lp.Uri})\n" +
-                    $"{lp.Position.ToString(@"hh\:mm\:ss")} - {lp.Length.ToString(@"hh\:mm\:ss")}")
-                    .WithThumbnailUrl(AudioService.GetYoutubeVideoThumbnailLink(lp.Uri))
-                    .WithCurrentTimestamp();
-
-                await ReplyAsync("", false, builder.Build());
+                await Context.Channel.SendNowPlayingEmbed(track);
             }
-            catch (Exception ex)
-            {
-                await ReplyAsync("Uh, oh ... ahem OOF ... an error occurred :\n```" + ex.ToString() + "```\n <@272472106380558336> ...?");
-            }
-        }*/
+        }
     }
 }

@@ -5,27 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Commands\Clear.cs" />
-    <Compile Remove="Commands\Forward.cs" />
-    <Compile Remove="Commands\Join.cs" />
-    <Compile Remove="Commands\Leave.cs" />
     <Compile Remove="Commands\LoopSong.cs" />
-    <Compile Remove="Commands\Move.cs" />
+    <Compile Remove="Commands\Music.cs" />
     <Compile Remove="Commands\MusicHelp.cs" />
-    <Compile Remove="Commands\NowPlaying.cs" />
-    <Compile Remove="Commands\Pause.cs" />
-    <Compile Remove="Commands\Queue.cs" />
-    <Compile Remove="Commands\Remove.cs" />
-    <Compile Remove="Commands\Resume.cs" />
-    <Compile Remove="Commands\Seek.cs" />
-    <Compile Remove="Commands\Skip.cs" />
-    <Compile Remove="Commands\Volume.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Discord.Net" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-    <PackageReference Include="Victoria" Version="5.0.5" />
+    <PackageReference Include="Victoria" Version="4.0.17" />
   </ItemGroup>
 
 </Project>

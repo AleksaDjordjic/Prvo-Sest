@@ -1,43 +1,32 @@
-﻿using Discord.Commands;
+﻿using BotAudioModule.Scripts;
+using Discord.Commands;
 using Discord.WebSocket;
-using System;
 using System.Threading.Tasks;
 
 namespace BotAudioModule.Commands
 {
-    public class Volume : ModuleBase<SocketCommandContext>
+    public class Volume : MusicCommand
     {
+        public Volume(AudioService audioService) : base(audioService)
+        {
+        }
+
         [Command("volume")]
         async Task CommandTask(int volume)
         {
-            SocketGuildUser executionUser = (SocketGuildUser)Context.User;
-            if (AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id).VoiceChannel == null)
+            if (await CheckVoiceChannel() == false)
+                return;
+            
+            SocketGuildUser user = (SocketGuildUser)Context.User;
+            if (volume > 150 || volume < 5)
             {
-                await ReplyAsync("Bot isn't connected to a channel at the moment...");
+                await Context.Channel.SendErrorEmbed("Volume must be between 150 and 5!");
                 return;
             }
 
-            if (executionUser.VoiceChannel == null || executionUser.VoiceChannel != AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id).VoiceChannel)
-            {
-                await ReplyAsync("You cannot perform this command while not in the voice channel!");
-                return;
-            }
-
-            if (volume > 150 || volume < 0)
-            {
-                await ReplyAsync($"Volume must be between 0 and 150");
-                return;
-            }
-            try
-            {
-                var player = AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id);
-                await player.SetVolumeAsync(volume);
-                await ReplyAsync($"Volume has been set to {volume}");
-            }
-            catch (InvalidOperationException ex)
-            {
-                await ReplyAsync("Uh, oh ... ahem OOF ... an error occurred :\n```" + ex.ToString() + "```\n <@272472106380558336> ...?");
-            }
+            var player = AudioService.LavaClient.GetPlayer(Context.Guild.Id);
+            await player.SetVolumeAsync(volume);
+            await Context.Channel.SendVolumeChangedEmbed(volume);
         }
     }
 }
