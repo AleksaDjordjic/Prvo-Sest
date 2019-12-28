@@ -84,6 +84,24 @@ namespace DatabaseController.DatabaseAccessors
             else return 0;
         }
 
+        public static bool RemoveTestByID(ulong id, DatabaseConnection dbc = null)
+        {
+            if (dbc == null)
+                dbc = new DatabaseConnection();
+
+            if (dbc.CheckConnection())
+            {
+                string query = "DELETE FROM Test WHERE ID = @id";
+                MySqlCommand cmd = new MySqlCommand(query, dbc.connection);
+                cmd.Parameters.AddWithValue("@id", id);
+
+                cmd.ExecuteNonQuery();
+                dbc.CloseConnection();
+                return true;
+            }
+            else return false;
+        }
+
         static List<Test> ReadTests(MySqlDataReader reader)
         {
             List<Test> tests = new List<Test>();

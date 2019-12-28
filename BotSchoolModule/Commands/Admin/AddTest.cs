@@ -48,9 +48,6 @@ namespace BotSchoolModule.Commands.Admin
                 $"TimeStamp: {addedTest.timeStamp} ({new DateTime((long)addedTest.timeStamp, DateTimeKind.Utc).ToLocalTime().ToString()})\n" +
                 $"Type: {addedTest.type} ({((TestType)addedTest.type).ToString()})\n" +
                 $"Comment: {addedTest.comment}");
-
-            Console.WriteLine(DateTime.UtcNow.Ticks);
-            Console.WriteLine(utcDate.Ticks);
         }
     }
 }
