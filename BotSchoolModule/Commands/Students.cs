@@ -3,7 +3,7 @@ using Discord.Commands;
 using Discord.WebSocket;
 using System.Threading.Tasks;
 
-namespace DiscordBot.Commands
+namespace BotSchoolModule
 {
     public class Students : ModuleBase<SocketCommandContext>
     {
@@ -19,7 +19,7 @@ namespace DiscordBot.Commands
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.WithTitle("Učenici")
-                .WithColor(Static.Color)
+                .WithColor(SchoolModule.messageColor)
                 .WithDescription(description)
                 .WithCurrentTimestamp();
 
@@ -45,7 +45,7 @@ namespace DiscordBot.Commands
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.WithTitle($"Učenik #{student.ID}")
-                .WithColor(Static.Color)
+                .WithColor(SchoolModule.messageColor)
                 .WithDescription($"{student.FirstName} {student.LastName} - <@{student.DiscordID}>")
                 .WithCurrentTimestamp();
 
@@ -65,7 +65,7 @@ namespace DiscordBot.Commands
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.WithTitle($"Učenik #{student.ID}")
-                .WithColor(Static.Color)
+                .WithColor(SchoolModule.messageColor)
                 .WithDescription($"{student.FirstName} {student.LastName} - <@{student.DiscordID}>")
                 .WithCurrentTimestamp();
 
@@ -85,7 +85,7 @@ namespace DiscordBot.Commands
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.WithTitle($"Učenik #{student.ID}")
-                .WithColor(Static.Color)
+                .WithColor(SchoolModule.messageColor)
                 .WithDescription($"{student.FirstName} {student.LastName} - <@{student.DiscordID}>")
                 .WithCurrentTimestamp();
 

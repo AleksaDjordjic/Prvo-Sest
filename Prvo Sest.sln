@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bindings", "Bindings\Bindin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotMiscellaneousModule", "BotMiscellaneousModule\BotMiscellaneousModule.csproj", "{5937FB99-7CE5-457C-BA01-4BCE169575F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotSchoolModule", "BotSchoolModule\BotSchoolModule.csproj", "{D0D956BD-3E59-4B1C-A8AF-2350220CEF4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,6 +59,10 @@ Global
 		{5937FB99-7CE5-457C-BA01-4BCE169575F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5937FB99-7CE5-457C-BA01-4BCE169575F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5937FB99-7CE5-457C-BA01-4BCE169575F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0D956BD-3E59-4B1C-A8AF-2350220CEF4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0D956BD-3E59-4B1C-A8AF-2350220CEF4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0D956BD-3E59-4B1C-A8AF-2350220CEF4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0D956BD-3E59-4B1C-A8AF-2350220CEF4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,7 @@
 using Discord.Commands;
 using System.Threading.Tasks;
 
-namespace DiscordBot.Commands
+namespace BotSchoolModule
 {
     public class Subjects : ModuleBase<SocketCommandContext>
     {
@@ -18,7 +18,7 @@ namespace DiscordBot.Commands
 
             EmbedBuilder embed = new EmbedBuilder();
             embed.WithTitle("Predmeti")
-                .WithColor(Static.Color)
+                .WithColor(SchoolModule.messageColor)
                 .WithDescription(description)
                 .WithCurrentTimestamp();
 

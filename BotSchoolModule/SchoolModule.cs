@@ -1,14 +1,14 @@
 ﻿using Discord;
 using Discord.WebSocket;
 
-namespace BotMiscellaneousModule
+namespace BotSchoolModule
 {
-    public class MiscellaneousModule
+    public class SchoolModule
     {
         public static string botPrefix;
         public static Color messageColor;
 
-        public MiscellaneousModule(DiscordSocketClient socketClient, Color _messageColor, string _botPrefix)
+        public SchoolModule(DiscordSocketClient socketClient, Color _messageColor, string _botPrefix)
         {
             botPrefix = _botPrefix;
             messageColor = _messageColor;
