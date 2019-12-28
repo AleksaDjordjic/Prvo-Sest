@@ -10,7 +10,7 @@ namespace BotAudioModule.Commands
         {
         }
 
-        [Alias("dc", "disconnect", "quit")]
+        [Alias("dc", "disconnect", "quit", "fuckoff", "cunt")]
         [Command("leave", RunMode = RunMode.Async)]
         async Task CommandTask()
         {

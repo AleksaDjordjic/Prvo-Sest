@@ -15,12 +15,13 @@ namespace BotServerManagmentModule.Commands
 
             var prefix = ServerManagmentModule.botPrefix;
 
-            builder.WithTitle($"Komande za Admine - Bot Prefix: {prefix}")
+            builder.WithTitle($"Komande za Admine - Bot Prefix: `{prefix}`")
                 .WithColor(ServerManagmentModule.messageColor)
                 .WithDescription(
                 $"`{prefix}ping` - Salje RTT i Gateway Delay Bota\n" +
                 $"`{prefix}say <#channel> <text>` - Posalje <text> u odredjen <#channel>\n" +
                 $"`{prefix}announce <channel> \"<title>\" <message>` - Posalje Embed sa naslovom <title>, desckripcijom <message> u odredjen <#channel>\n" +
+                $"`{prefix}announce-fields <channel> \"<title>\" <description> <fieldData>` - Posalje Embed sa naslovom <title>, desckripcijom <description> u odredjen <#channel> sa Fieldovima preko <fieldData>. Svaki field se odvaja sa &; a header i content sa $;\n" +
                 $"`{prefix}purge <amount>` - Obrise poslednjih <amount> poruka u trenutnom kanalu\n" + customHelpText)
                 .WithCurrentTimestamp();
 

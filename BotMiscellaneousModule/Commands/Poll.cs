@@ -6,6 +6,7 @@ namespace BotMiscellaneousModule.Commands
 {
     public class Poll : ModuleBase<SocketCommandContext>
     {
+        [Alias("anketa")]
         [Command("poll", RunMode = RunMode.Async)]
         public async Task CommandTask(string title, [Remainder]string input)
         {

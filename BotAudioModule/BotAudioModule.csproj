@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Compile Remove="Commands\Music.cs" />
-    <Compile Remove="Commands\MusicHelp.cs" />
   </ItemGroup>
 
   <ItemGroup>
