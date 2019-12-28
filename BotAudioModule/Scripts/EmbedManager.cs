@@ -68,18 +68,20 @@ namespace BotAudioModule.Scripts
             await channel.SendMessageAsync("", false, builder.Build());
         }
 
-        public static async Task SendCurrentQueueEmbed(this ISocketMessageChannel channel, LavaPlayer player, int songsPerPage = 15, int pages = 1)
+        public static async Task SendCurrentQueueEmbed(this ISocketMessageChannel channel, LavaPlayer player, int songsPerPage = 15, int pages = 1, bool loopQueue = false, bool loopSong = false)
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithCurrentTimestamp()
                 .WithTitle("Current Queue")
                 .WithColor(AudioModule.messageColor)
-                .WithDescription("**Currently Playing :**")
+                .WithDescription("**Currently Playing: **")
                 .AddField(player.CurrentTrack.Author,
-                $"[{player.CurrentTrack.Title}]({player.CurrentTrack.Uri}) - {player.CurrentTrack.Position.ToString(@"hh\:mm\:ss")}");
+                $"[{player.CurrentTrack.Title}]({player.CurrentTrack.Uri}) - {player.CurrentTrack.Position.ToString(@"hh\:mm\:ss")}" +
+                (loopSong ? "\n:repeat_one: Song Loop Enabled" : ""));
 
             if (player.Queue.Count > 0)
-                builder.AddField("\u200b \n--------------------", "In the Queue :");
+                builder.AddField("\u200b \n--------------------", "In the Queue :" +
+                    (loopQueue ? "\n:repeat: Queue Loop Enabled" : ""));
 
             TimeSpan totalTime = TimeSpan.FromMilliseconds(0);
             int trackIndex = 1;

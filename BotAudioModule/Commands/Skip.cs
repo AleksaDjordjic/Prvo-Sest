@@ -25,7 +25,12 @@ namespace BotAudioModule.Commands
             await Context.Channel.SendSongSkippedEmbed(currentTrack);
 
             if (player.Queue.Count >= 1)
+            {
                 await player.SkipAsync();
+
+                if (AudioService.loopQueue)
+                    player.Queue.Enqueue(currentTrack);
+            }
             else await player.StopAsync();
         }
     }

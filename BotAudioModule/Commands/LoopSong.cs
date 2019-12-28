@@ -1,46 +1,29 @@
-﻿using Discord.Commands;
-using Discord.WebSocket;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using BotAudioModule.Scripts;
+using Discord.Commands;
 using System.Threading.Tasks;
 
 namespace BotAudioModule.Commands
 {
-    public class LoopSong : ModuleBase<SocketCommandContext>
+    public class LoopSong : MusicCommand
     {
+        public LoopSong(AudioService audioService) : base(audioService)
+        {
+        }
+
         [Command("loop-song")]
         async Task CommandTask()
         {
-            SocketGuildUser executionUser = (SocketGuildUser)Context.User;
-            if (AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id).VoiceChannel == null)
-            {
-                await ReplyAsync("Bot isn't connected to a channel at the moment...");
+            if (await CheckVoiceChannel(true) == false)
                 return;
-            }
 
-            if (executionUser.VoiceChannel == null || executionUser.VoiceChannel != AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id).VoiceChannel)
-            {
-                await ReplyAsync("You cannot perform this command while not in the voice channel!");
-                return;
-            }
+            var player = AudioService.LavaClient.GetPlayer(Context.Guild.Id);
 
-            var player = AudioModule.audioService._lavalink.DefaultNode.GetPlayer(Context.Guild.Id);
-            
-            if(player.CurrentTrack == null)
-            {
-                await ReplyAsync("Music is not playing ...");
-                return;
-            }
-
-            bool currentLoop = AudioModule.audioService.loopCurrentSong;
-
-            if(currentLoop)
-                await ReplyAsync($"Disabled loop for `{player.CurrentTrack.Title}`");
+            if(AudioService.loopSong)
+                await ReplyAsync($"Disabled loop for `{player.CurrentTrack.Title}` :x:");
             else
-                await ReplyAsync($"Enabled loop for `{player.CurrentTrack.Title}`");
+                await ReplyAsync($"Enabled loop for `{player.CurrentTrack.Title}` :repeat_one:");
 
-            AudioModule.audioService.loopCurrentSong = !AudioModule.audioService.loopCurrentSong;
+            AudioService.loopSong = !AudioService.loopSong;
         }
     }
 }

@@ -18,7 +18,7 @@ namespace BotAudioModule.Commands
 
             await Context.Channel.SendCurrentQueueEmbed(
                 AudioService.LavaClient.GetPlayer(Context.Guild.Id), 
-                15, pages);
+                15, pages, AudioService.loopQueue, AudioService.loopSong);
         }
     }
 }

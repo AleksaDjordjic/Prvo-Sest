@@ -1,8 +1,6 @@
 ﻿using BotAudioModule.Scripts;
-using Discord;
 using Discord.WebSocket;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using Victoria;
 using Victoria.Entities;
@@ -14,6 +12,9 @@ namespace BotAudioModule
         public static LavaRestClient LavaRestClient;
         public static LavaSocketClient LavaClient;
         public static DiscordSocketClient discordClient;
+
+        public static bool loopSong = false;
+        public static bool loopQueue = false;
 
         public AudioService(LavaRestClient lavaRestClient, DiscordSocketClient client,
             LavaSocketClient lavaSocketClient)
@@ -39,6 +40,16 @@ namespace BotAudioModule
         {
             if (!reason.ShouldPlayNext())
                 return;
+
+            if (loopSong)
+            {
+                await player.PlayAsync(track);
+                await ((ISocketMessageChannel)player.TextChannel).SendNowPlayingEmbed(track);
+                return;
+            }
+
+            if (loopQueue)
+                player.Queue.Enqueue(track);
 
             if (!player.Queue.TryDequeue(out var item) || !(item is LavaTrack nextTrack))
             {

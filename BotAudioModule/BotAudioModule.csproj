@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Commands\LoopSong.cs" />
     <Compile Remove="Commands\Music.cs" />
     <Compile Remove="Commands\MusicHelp.cs" />
   </ItemGroup>
