@@ -15,6 +15,7 @@
     <ProjectReference Include="..\BotAudioModule\BotAudioModule.csproj" />
     <ProjectReference Include="..\BotColorReactModule\BotColorReactModule.csproj" />
     <ProjectReference Include="..\BotHallMonitorModule\BotHallMonitorModule.csproj" />
+    <ProjectReference Include="..\BotMiscellaneousModule\BotMiscellaneousModule.csproj" />
     <ProjectReference Include="..\BotServerManagmentModule\BotServerManagmentModule.csproj" />
   </ItemGroup>
 

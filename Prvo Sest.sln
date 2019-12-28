@@ -11,11 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotServerManagmentModule", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotColorReactModule", "BotColorReactModule\BotColorReactModule.csproj", "{56B72DB8-36C4-47D3-B49A-CAE6A0A3CDC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotHallMonitorModule", "BotHallMonitorModule\BotHallMonitorModule.csproj", "{FB2F150C-C913-4BDD-8FD1-1EF0C642556A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotHallMonitorModule", "BotHallMonitorModule\BotHallMonitorModule.csproj", "{FB2F150C-C913-4BDD-8FD1-1EF0C642556A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseController", "DatabaseController\DatabaseController.csproj", "{84509DEA-F3C3-4401-90E3-65619E2B991E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseController", "DatabaseController\DatabaseController.csproj", "{84509DEA-F3C3-4401-90E3-65619E2B991E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bindings", "Bindings\Bindings.csproj", "{364F89C2-60A1-444D-AA89-31AD06067076}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bindings", "Bindings\Bindings.csproj", "{364F89C2-60A1-444D-AA89-31AD06067076}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotMiscellaneousModule", "BotMiscellaneousModule\BotMiscellaneousModule.csproj", "{5937FB99-7CE5-457C-BA01-4BCE169575F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{364F89C2-60A1-444D-AA89-31AD06067076}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{364F89C2-60A1-444D-AA89-31AD06067076}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{364F89C2-60A1-444D-AA89-31AD06067076}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5937FB99-7CE5-457C-BA01-4BCE169575F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5937FB99-7CE5-457C-BA01-4BCE169575F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5937FB99-7CE5-457C-BA01-4BCE169575F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5937FB99-7CE5-457C-BA01-4BCE169575F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

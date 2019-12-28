@@ -17,6 +17,7 @@ namespace DiscordBot
         public static ServerManagmentModule managmentModule;
         public static ColorReactModule colorReactModule;
         public static HallMonitorModule hallMonitorModule;
+        public static MiscellaneousModule miscellaneousModule;
 
         public static void SetupModules(DiscordSocketClient socketClient, IServiceCollection serviceCollection, ref IServiceProvider serviceProvider)
         {
@@ -25,6 +26,7 @@ namespace DiscordBot
                 $"`{Static.Prefix}advance-hall-monitor` - Prebacuje <#659343822127497216> na sledecu nedelju");
             colorReactModule = new ColorReactModule(socketClient, Static.Color, Static.Prefix);
             hallMonitorModule = new HallMonitorModule(socketClient, Static.Color, Static.Prefix);
+            miscellaneousModule = new MiscellaneousModule(socketClient, Static.Color, Static.Prefix);
 
             audioModule = new AudioModule(socketClient, serviceCollection, Static.Color, Static.Prefix);
             serviceProvider = serviceCollection.BuildServiceProvider();
@@ -38,6 +40,7 @@ namespace DiscordBot
             await commandService.AddModulesAsync(typeof(ServerManagmentModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(ColorReactModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(HallMonitorModule).Assembly, serviceProvider);
+            await commandService.AddModulesAsync(typeof(MiscellaneousModule).Assembly, serviceProvider);
         }
     }
 }
