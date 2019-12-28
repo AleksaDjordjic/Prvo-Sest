@@ -10,7 +10,7 @@ namespace BotAudioModule.Commands
         {
         }
 
-        [Command("queue")]
+        [Command("queue", RunMode = RunMode.Async)]
         async Task CommandTask([Remainder] int pages = 1)
         {
             if (await CheckVoiceChannel(true) == false)

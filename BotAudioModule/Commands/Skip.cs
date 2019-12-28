@@ -12,7 +12,7 @@ namespace BotAudioModule.Commands
         }
 
         [Alias("next", "nextsong", "s")]
-        [Command("skip")]
+        [Command("skip", RunMode = RunMode.Async)]
         public async Task CommandTask()
         {
             if (await CheckVoiceChannel(true) == false)

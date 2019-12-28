@@ -12,7 +12,7 @@ namespace BotAudioModule.Commands
         }
 
         [Alias("fwd", "fw")]
-        [Command("forward")]
+        [Command("forward", RunMode = RunMode.Async)]
         async Task CommandTask(int seconds)
         {
             if (await CheckVoiceChannel(true) == false)

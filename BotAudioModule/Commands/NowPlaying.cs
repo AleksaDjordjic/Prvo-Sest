@@ -11,7 +11,7 @@ namespace BotAudioModule.Commands
         }
 
         [Alias("np", "currentsong", "songname", "song")]
-        [Command("nowplaying")]
+        [Command("nowplaying", RunMode = RunMode.Async)]
         async Task CommandTask()
         {
             if (await CheckVoiceChannel(true) == false)

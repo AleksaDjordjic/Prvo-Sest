@@ -3,7 +3,6 @@ using Discord.Commands;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace BotAudioModule.Commands
 {
     public class Move : MusicCommand
@@ -12,7 +11,7 @@ namespace BotAudioModule.Commands
         {
         }
 
-        [Command("move")]
+        [Command("move", RunMode = RunMode.Async)]
         async Task CommandTask(int oldIndex, int newIndex)
         {
             if (await CheckVoiceChannel() == false)

@@ -10,7 +10,7 @@ namespace BotAudioModule.Commands
         {
         }
 
-        [Command("pause")]
+        [Command("pause", RunMode = RunMode.Async)]
         async Task CommandTask()
         {
             if (await CheckVoiceChannel(true) == false)

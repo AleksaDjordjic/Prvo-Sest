@@ -12,7 +12,7 @@ namespace BotAudioModule.Commands
         {
         }
 
-        [Command("remove")]
+        [Command("remove", RunMode = RunMode.Async)]
         async Task CommandTask(int index)
         {
             if (await CheckVoiceChannel() == false)

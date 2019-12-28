@@ -13,7 +13,7 @@ namespace BotAudioModule.Commands
         }
 
         [Alias("summon")]
-        [Command("join")]
+        [Command("join", RunMode = RunMode.Async)]
         public async Task CommandTask()
         {
             SocketGuildUser user = (SocketGuildUser)Context.User;

@@ -11,7 +11,7 @@ namespace BotAudioModule.Commands
         }
 
         [Alias("dc", "disconnect", "quit")]
-        [Command("leave")]
+        [Command("leave", RunMode = RunMode.Async)]
         async Task CommandTask()
         {
             if (await CheckVoiceChannel(true) == false)

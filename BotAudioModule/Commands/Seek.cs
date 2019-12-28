@@ -11,7 +11,7 @@ namespace BotAudioModule.Commands
         {
         }
 
-        [Command("seek")]
+        [Command("seek", RunMode = RunMode.Async)]
         async Task CommandTask(int seconds)
         {
             if (await CheckVoiceChannel(true) == false)

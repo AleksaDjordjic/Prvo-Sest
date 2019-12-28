@@ -14,7 +14,7 @@ namespace BotAudioModule.Commands
         }
 
         [Alias("stop", "empty")]
-        [Command("clear")]
+        [Command("clear", RunMode = RunMode.Async)]
         public async Task CommandTask()
         {
             if (await CheckVoiceChannel() == false)
