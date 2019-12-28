@@ -44,22 +44,44 @@ namespace DatabaseController.DatabaseAccessors
             else return null;
         }
 
-        public static Test GetTestsFromTimeStamp(ulong timeStamp, DatabaseConnection dbc = null)
+        public static List<Test> GetTestsFromTimeStamp(ulong timeStamp, DatabaseConnection dbc = null)
         {
             if (dbc == null)
                 dbc = new DatabaseConnection();
 
             if (dbc.CheckConnection())
             {
-                string query = "SELECT * FROM Test WHERE ID >= @ts";
+                string query = "SELECT * FROM Test WHERE TimeStamp >= @ts";
                 MySqlCommand cmd = new MySqlCommand(query, dbc.connection);
                 cmd.Parameters.AddWithValue("@ts", timeStamp);
 
                 var r = ReadTests(cmd.ExecuteReader());
                 dbc.CloseConnection();
-                return r.First();
+                return r;
             }
             else return null;
+        }
+
+        public static ulong AddTest(Test test, DatabaseConnection dbc = null)
+        {
+            if (dbc == null)
+                dbc = new DatabaseConnection();
+
+            if (dbc.CheckConnection())
+            {
+                string query = "INSERT INTO Test (TimeStamp, Subject, Type, Comment) " +
+                    "VALUES(@time, @sub, @type, @comm); SELECT LAST_INSERT_ID();";
+                MySqlCommand cmd = new MySqlCommand(query, dbc.connection);
+                cmd.Parameters.AddWithValue("@time", test.timeStamp);
+                cmd.Parameters.AddWithValue("@sub", test.subjectID);
+                cmd.Parameters.AddWithValue("@type", test.type);
+                cmd.Parameters.AddWithValue("@comm", test.comment);
+
+                var r = (ulong)cmd.ExecuteScalar();
+                dbc.CloseConnection();
+                return r;
+            }
+            else return 0;
         }
 
         static List<Test> ReadTests(MySqlDataReader reader)
