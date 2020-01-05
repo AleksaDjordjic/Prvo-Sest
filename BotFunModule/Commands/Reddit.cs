@@ -27,7 +27,7 @@ namespace BotFunModule.Commands
             builder.WithCurrentTimestamp()
                 .WithColor(FunModule.messageColor)
                 .WithTitle(post.title)
-                .WithImageUrl(@$"http://imgur.com/{post.hash}{post.ext}")
+                .WithImageUrl($@"http://imgur.com/{post.hash}{post.ext}")
                 .WithFooter($"By: {post.author} - {post.views} Views");
 
             await ReplyAsync("", false, builder.Build());
