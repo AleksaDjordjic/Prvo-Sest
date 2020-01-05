@@ -3,8 +3,10 @@ using Discord.Commands;
 using System.Threading.Tasks;
 using System.IO;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Net;
 using System;
+using System.Linq;
 
 namespace BotMemeGeneratorModule.Commands
 {
@@ -77,9 +79,17 @@ namespace BotMemeGeneratorModule.Commands
                 }
 
                 using (Bitmap bmp = new Bitmap(img))
-                    bmp.Save(memeDirectory + $"{memeKey}-{Context.User.Id}-{currentTicks}-edit.png");
+                {
+                    var codecInfo = ImageCodecInfo.GetImageEncoders().FirstOrDefault(x => x.MimeType == "image/jpeg");
+                    var encoder = Encoder.Compression;
+                    var encoderParams = new EncoderParameters(1);
 
-                await Context.Channel.SendFileAsync(memeDirectory + $"{memeKey}-{Context.User.Id}-{currentTicks}-edit.png");
+                    encoderParams.Param[0] = new EncoderParameter(encoder, 50);
+
+                    bmp.Save(memeDirectory + $"{memeKey}-{Context.User.Id}-{currentTicks}-edit.jpeg", codecInfo, encoderParams);
+                }
+
+                await Context.Channel.SendFileAsync(memeDirectory + $"{memeKey}-{Context.User.Id}-{currentTicks}-edit.jpeg");
             }
         }
 
