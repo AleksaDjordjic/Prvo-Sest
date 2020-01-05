@@ -65,6 +65,7 @@ namespace BotMemeGeneratorModule.Scripts
                     }
                 }
             }},
+
             { "change-my-mind", new MemeTemplate()
             {
                 originalImageURL = @"https://imgflip.com/s/meme/Change-My-Mind.jpg",
@@ -85,6 +86,106 @@ namespace BotMemeGeneratorModule.Scripts
                     }
                 }
             }},
+
+            { "imma-head-out", new MemeTemplate()
+            {
+                originalImageURL = @"https://imgflip.com/s/meme/Spongebob-Ight-Imma-Head-Out.jpg",
+                memeTexts = new List<MemeText>()
+                {
+                    new MemeText()
+                    {
+                        boundingBox = new Rectangle()
+                        {
+                            Height = 240,
+                            Width = 820,
+                            X = 0,
+                            Y = 0
+                        },
+                        fontSize = 72,
+                        fontBrush = Brushes.Black,
+                        rotateTextAmmount = 0f
+                    }
+                }
+            }},
+
+            { "tuxedo-winnie", new MemeTemplate()
+            {
+                originalImageURL = @"https://imgflip.com/s/meme/Tuxedo-Winnie-The-Pooh.png",
+                memeTexts = new List<MemeText>()
+                {
+                    new MemeText()
+                    {
+                        boundingBox = new Rectangle()
+                        {
+                            Height = 290,
+                            Width = 455,
+                            X = 345,
+                            Y = 0
+                        },
+                        fontSize = 40,
+                        fontBrush = Brushes.Black,
+                        rotateTextAmmount = 0f
+                    },
+                    new MemeText()
+                    {
+                        boundingBox = new Rectangle()
+                        {
+                            Height = 290,
+                            Width = 455,
+                            X = 345,
+                            Y = 300
+                        },
+                        fontSize = 40,
+                        fontBrush = Brushes.Black,
+                        rotateTextAmmount = 0f
+                    }
+                }
+            }},
+
+            { "waiting-skeleton", new MemeTemplate()
+            {
+                originalImageURL = @"https://imgflip.com/s/meme/Waiting-Skeleton.jpg",
+                memeTexts = new List<MemeText>()
+                {
+                    new MemeText()
+                    {
+                        boundingBox = new Rectangle()
+                        {
+                            Height = 130,
+                            Width = 298,
+                            X = 0,
+                            Y = 0
+                        },
+                        fontSize = 18,
+                        fontBrush = Brushes.Black,
+                        rotateTextAmmount = 0f
+                    }
+                }
+            }},
         };
     }
 }
+
+
+/*
+            { "  ", new MemeTemplate()
+            {
+                originalImageURL = @"   ",
+                memeTexts = new List<MemeText>()
+                {
+                    new MemeText()
+                    {
+                        boundingBox = new Rectangle()
+                        {
+                            Height = 0,
+                            Width = 0,
+                            X = 0,
+                            Y = 0
+                        },
+                        fontSize = 72,
+                        fontBrush = Brushes.Black,
+                        rotateTextAmmount = 0f
+                    }
+                }
+            }},
+*/
