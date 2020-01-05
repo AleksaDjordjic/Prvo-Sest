@@ -40,6 +40,8 @@ namespace BotMemeGeneratorModule.Commands
                 using (WebClient wc = new WebClient())
                     wc.DownloadFile(meme.originalImageURL, memeDirectory + memeKey + ".png");
 
+            var currentTicks = DateTime.UtcNow.Ticks;
+
             using (Image img = Image.FromFile(memeDirectory + memeKey + ".png"))
             {
                 using (Graphics g = Graphics.FromImage(img))
@@ -75,9 +77,9 @@ namespace BotMemeGeneratorModule.Commands
                 }
 
                 using (Bitmap bmp = new Bitmap(img))
-                    bmp.Save(memeDirectory + $"{memeKey}-{Context.User.Id}-{DateTime.UtcNow.Ticks}-edit.png");
+                    bmp.Save(memeDirectory + $"{memeKey}-{Context.User.Id}-{currentTicks}-edit.png");
 
-                await Context.Channel.SendFileAsync(memeDirectory + $"{memeKey}-{Context.User.Id}-edit.png");
+                await Context.Channel.SendFileAsync(memeDirectory + $"{memeKey}-{Context.User.Id}-{currentTicks}-edit.png");
             }
         }
 

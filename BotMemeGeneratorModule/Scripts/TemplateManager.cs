@@ -14,7 +14,7 @@ namespace BotMemeGeneratorModule.Scripts
                 {
                     new MemeText()
                     {
-                        boundingBox = new System.Drawing.Rectangle()
+                        boundingBox = new Rectangle()
                         {
                             Height = 290,
                             Width = 420,
@@ -27,7 +27,7 @@ namespace BotMemeGeneratorModule.Scripts
                     },
                     new MemeText()
                     {
-                        boundingBox = new System.Drawing.Rectangle()
+                        boundingBox = new Rectangle()
                         {
                             Height = 290,
                             Width = 420,
@@ -39,7 +39,7 @@ namespace BotMemeGeneratorModule.Scripts
                         rotateTextAmmount = 0f
                     },new MemeText()
                     {
-                        boundingBox = new System.Drawing.Rectangle()
+                        boundingBox = new Rectangle()
                         {
                             Height = 290,
                             Width = 420,
@@ -52,7 +52,7 @@ namespace BotMemeGeneratorModule.Scripts
                     },
                     new MemeText()
                     {
-                        boundingBox = new System.Drawing.Rectangle()
+                        boundingBox = new Rectangle()
                         {
                             Height = 290,
                             Width = 420,
@@ -62,6 +62,26 @@ namespace BotMemeGeneratorModule.Scripts
                         fontSize = 20,
                         fontBrush = Brushes.Black,
                         rotateTextAmmount = 0f
+                    }
+                }
+            }},
+            { "change-my-mind", new MemeTemplate()
+            {
+                originalImageURL = @"https://imgflip.com/s/meme/Change-My-Mind.jpg",
+                memeTexts = new List<MemeText>()
+                {
+                    new MemeText()
+                    {
+                        boundingBox = new Rectangle()
+                        {
+                            Height = 90,
+                            Width = 210,
+                            X = 175,
+                            Y = 250
+                        },
+                        fontSize = 14,
+                        fontBrush = Brushes.Black,
+                        rotateTextAmmount = -7.5f
                     }
                 }
             }},
