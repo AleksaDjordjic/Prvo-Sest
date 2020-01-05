@@ -22,8 +22,6 @@ namespace BotMemeGeneratorModule.Scripts
                             Y = 0
                         },
                         fontSize = 20,
-                        fontBrush = Brushes.Black,
-                        rotateTextAmmount = 0f
                     },
                     new MemeText()
                     {
@@ -35,8 +33,6 @@ namespace BotMemeGeneratorModule.Scripts
                             Y = 305
                         },
                         fontSize = 20,
-                        fontBrush = Brushes.Black,
-                        rotateTextAmmount = 0f
                     },new MemeText()
                     {
                         boundingBox = new Rectangle()
@@ -47,8 +43,6 @@ namespace BotMemeGeneratorModule.Scripts
                             Y = 610
                         },
                         fontSize = 20,
-                        fontBrush = Brushes.Black,
-                        rotateTextAmmount = 0f
                     },
                     new MemeText()
                     {
@@ -60,8 +54,6 @@ namespace BotMemeGeneratorModule.Scripts
                             Y = 895
                         },
                         fontSize = 20,
-                        fontBrush = Brushes.Black,
-                        rotateTextAmmount = 0f
                     }
                 }
             }},
@@ -81,7 +73,6 @@ namespace BotMemeGeneratorModule.Scripts
                             Y = 250
                         },
                         fontSize = 14,
-                        fontBrush = Brushes.Black,
                         rotateTextAmmount = -7.5f
                     }
                 }
@@ -102,8 +93,6 @@ namespace BotMemeGeneratorModule.Scripts
                             Y = 0
                         },
                         fontSize = 72,
-                        fontBrush = Brushes.Black,
-                        rotateTextAmmount = 0f
                     }
                 }
             }},
@@ -122,9 +111,6 @@ namespace BotMemeGeneratorModule.Scripts
                             X = 345,
                             Y = 0
                         },
-                        fontSize = 40,
-                        fontBrush = Brushes.Black,
-                        rotateTextAmmount = 0f
                     },
                     new MemeText()
                     {
@@ -135,9 +121,6 @@ namespace BotMemeGeneratorModule.Scripts
                             X = 345,
                             Y = 300
                         },
-                        fontSize = 40,
-                        fontBrush = Brushes.Black,
-                        rotateTextAmmount = 0f
                     }
                 }
             }},
@@ -157,8 +140,11 @@ namespace BotMemeGeneratorModule.Scripts
                             Y = 0
                         },
                         fontSize = 18,
-                        fontBrush = Brushes.Black,
-                        rotateTextAmmount = 0f
+                        textFormat = new StringFormat() 
+                        { 
+                            Alignment = StringAlignment.Center, 
+                            LineAlignment = StringAlignment.Near 
+                        }
                     }
                 }
             }},

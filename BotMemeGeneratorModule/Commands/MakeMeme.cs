@@ -53,11 +53,6 @@ namespace BotMemeGeneratorModule.Commands
                         var text = meme.memeTexts[i];
 
                         Font preferedFont = new Font("Impact", text.fontSize, FontStyle.Regular);
-                        StringFormat stringFormat = new StringFormat()
-                        {
-                            Alignment = StringAlignment.Center,
-                            LineAlignment = StringAlignment.Center
-                        };
 
                         try
                         {
@@ -67,7 +62,7 @@ namespace BotMemeGeneratorModule.Commands
                                 g.DrawRectangle(new Pen(Brushes.Red, 10), text.boundingBox);
 
                             using (Font f = FindFont(g, args[i], text.boundingBox.Width, text.boundingBox.Size, preferedFont))
-                                g.DrawString(args[i], f, text.fontBrush, text.boundingBox, stringFormat);
+                                g.DrawString(args[i], f, text.fontBrush, text.boundingBox, text.textFormat);
 
                             g.RotateTransform(-text.rotateTextAmmount);
                         }

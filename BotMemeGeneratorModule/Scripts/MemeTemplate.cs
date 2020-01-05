@@ -9,11 +9,17 @@ namespace BotMemeGeneratorModule.Scripts
         public List<MemeText> memeTexts;
     }
 
-    public struct MemeText
+    public class MemeText
     {
         public Rectangle boundingBox;
-        public float fontSize;
-        public Brush fontBrush;
-        public float rotateTextAmmount;
+        public float fontSize = 40;
+        public Brush fontBrush = Brushes.Black;
+        public float rotateTextAmmount = 0f;
+
+        public StringFormat textFormat = new StringFormat()
+        { 
+            Alignment = StringAlignment.Center, 
+            LineAlignment = StringAlignment.Center 
+        };
     }
 }
