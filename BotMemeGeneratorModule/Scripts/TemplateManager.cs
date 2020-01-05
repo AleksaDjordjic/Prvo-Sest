@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
 
 namespace BotMemeGeneratorModule.Scripts
 {
@@ -20,7 +21,9 @@ namespace BotMemeGeneratorModule.Scripts
                             X = 0,
                             Y = 0
                         },
-                        fontSize = 20
+                        fontSize = 20,
+                        fontBrush = Brushes.Black,
+                        rotateTextAmmount = 0f
                     },
                     new MemeText()
                     {
@@ -31,7 +34,9 @@ namespace BotMemeGeneratorModule.Scripts
                             X = 0,
                             Y = 305
                         },
-                        fontSize = 20
+                        fontSize = 20,
+                        fontBrush = Brushes.Black,
+                        rotateTextAmmount = 0f
                     },new MemeText()
                     {
                         boundingBox = new System.Drawing.Rectangle()
@@ -41,7 +46,9 @@ namespace BotMemeGeneratorModule.Scripts
                             X = 0,
                             Y = 610
                         },
-                        fontSize = 20
+                        fontSize = 20,
+                        fontBrush = Brushes.Black,
+                        rotateTextAmmount = 0f
                     },
                     new MemeText()
                     {
@@ -52,7 +59,9 @@ namespace BotMemeGeneratorModule.Scripts
                             X = 0,
                             Y = 895
                         },
-                        fontSize = 20
+                        fontSize = 20,
+                        fontBrush = Brushes.Black,
+                        rotateTextAmmount = 0f
                     }
                 }
             }},
