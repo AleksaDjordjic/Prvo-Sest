@@ -14,7 +14,7 @@ namespace BotAudioModule.Commands
         [Command("leave", RunMode = RunMode.Async)]
         async Task CommandTask()
         {
-            if (await CheckVoiceChannel(true) == false)
+            if (await CheckVoiceChannel() == false)
                 return;
 
             var player = AudioService.LavaClient.GetPlayer(Context.Guild.Id);
