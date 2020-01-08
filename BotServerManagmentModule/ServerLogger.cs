@@ -16,15 +16,112 @@ namespace BotServerManagmentModule
             socketClient.MessageUpdated += MessageUpdated;
             socketClient.GuildMemberUpdated += GuildMemberUpdated;
             socketClient.UserBanned += UserBanned;
+
+            socketClient.ChannelCreated += ChannelCreated;
+            socketClient.ChannelDestroyed += ChannelDestroyed;
+            socketClient.ChannelUpdated += ChannelUpdated;
+
+            socketClient.RoleCreated += RoleCreated;
+            socketClient.RoleDeleted += RoleDeleted;
+            socketClient.RoleUpdated += RoleUpdated;
+        }
+
+        async Task RoleUpdated(SocketRole arg1, SocketRole arg2)
+        {
+            if (IsLogChannelNULL()) return;
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithColor(arg2.Color)
+                .WithDescription(
+                    $"Role Created: {arg2.Name} ({arg2.Id})")
+                // TODO: ADD PERMISSIONS
+                .WithFooter("Created At:")
+                .WithTimestamp(arg2.CreatedAt);
+
+            await logChannel.SendMessageAsync("", false, builder.Build());
+        }
+
+        async Task RoleDeleted(SocketRole arg)
+        {
+            if (IsLogChannelNULL()) return;
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithColor(arg.Color)
+                .WithDescription(
+                    $"Role Deleted: {arg.Name} ({arg.Id})")
+                // TODO: ADD PERMISSIONS
+                .WithFooter("Created At:")
+                .WithTimestamp(arg.CreatedAt);
+
+            await logChannel.SendMessageAsync("", false, builder.Build());
+        }
+
+        async Task RoleCreated(SocketRole arg)
+        {
+            if (IsLogChannelNULL()) return;
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithColor(arg.Color)
+                .WithDescription(
+                    $"Role Created: {arg.Name} ({arg.Id})")
+                // TODO: ADD PERMISSIONS
+                .WithFooter("Created At:")
+                .WithTimestamp(arg.CreatedAt);
+
+            await logChannel.SendMessageAsync("", false, builder.Build());
+        }
+
+        async Task ChannelUpdated(SocketChannel arg1, SocketChannel arg2)
+        {
+            if (IsLogChannelNULL()) return;
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithColor(Color.Red)
+                .WithDescription(
+                    $"Channel Updated: <#{arg1.Id}> ({arg1.Id})")
+                .WithFooter("Created At:")
+                .WithTimestamp(arg1.CreatedAt);
+
+            await logChannel.SendMessageAsync("", false, builder.Build());
+        }
+
+        async Task ChannelDestroyed(SocketChannel arg)
+        {
+            if (IsLogChannelNULL()) return;
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithColor(Color.Red)
+                .WithDescription(
+                    $"Channel Destroyed: <#{arg.Id}> ({arg.Id})")
+                .WithFooter("Created At:")
+                .WithTimestamp(arg.CreatedAt);
+
+            await logChannel.SendMessageAsync("", false, builder.Build());
+        }
+
+        async Task ChannelCreated(SocketChannel arg)
+        {
+            if (IsLogChannelNULL()) return;
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithColor(Color.Blue)
+                .WithDescription(
+                    $"Channel Created: <#{arg.Id}> ({arg.Id})")
+                .WithFooter("Created At:")
+                .WithTimestamp(arg.CreatedAt);
+
+            await logChannel.SendMessageAsync("", false, builder.Build());
         }
 
         async Task MessageDeleted(Cacheable<IMessage, ulong> cachable, ISocketMessageChannel _channel)
         {
-            var channel = _channel as SocketGuildChannel;
-            var Guild = channel.Guild;
-
-            if (logChannel == null)
-                logChannel = Guild.GetTextChannel(logChannelID);
+            CheckLogChannel(_channel);
 
             if (cachable.HasValue == false)
             {
@@ -56,11 +153,7 @@ namespace BotServerManagmentModule
 
         async Task MessageUpdated(Cacheable<IMessage, ulong> cachable, SocketMessage newMessage, ISocketMessageChannel _channel)
         {
-            var channel = _channel as SocketGuildChannel;
-            var Guild = channel.Guild;
-
-            if (logChannel == null)
-                logChannel = Guild.GetTextChannel(logChannelID);
+            CheckLogChannel(_channel);
 
             if (cachable.HasValue == false)
             {
@@ -104,6 +197,8 @@ namespace BotServerManagmentModule
 
         async Task GuildMemberUpdated(SocketGuildUser oldUser, SocketGuildUser newUser)
         {
+            CheckLogChannel(oldUser.Guild);
+
             if (oldUser.Nickname != newUser.Nickname)
             {
                 EmbedBuilder builder = new EmbedBuilder();
@@ -126,8 +221,7 @@ namespace BotServerManagmentModule
 
         async Task UserBanned(SocketUser user, SocketGuild guild)
         {
-            if (logChannel == null)
-                logChannel = guild.GetTextChannel(logChannelID);
+            CheckLogChannel(guild);
 
             EmbedBuilder builder = new EmbedBuilder();
             builder
@@ -138,6 +232,26 @@ namespace BotServerManagmentModule
                 .WithCurrentTimestamp();
 
             await logChannel.SendMessageAsync("", false, builder.Build());
+        }
+
+        bool IsLogChannelNULL()
+        {
+            return logChannel == null;
+        }
+
+        void CheckLogChannel(ISocketMessageChannel _channel)
+        {
+            var channel = _channel as SocketGuildChannel;
+            var Guild = channel.Guild;
+
+            if (logChannel == null)
+                logChannel = Guild.GetTextChannel(logChannelID);
+        }
+
+        void CheckLogChannel(SocketGuild guild)
+        {
+            if (logChannel == null)
+                logChannel = guild.GetTextChannel(logChannelID);
         }
     }
 }
