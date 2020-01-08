@@ -2,6 +2,7 @@
 using BotAudioModule;
 using BotColorReactModule;
 using BotFunModule;
+using BotGamesModule;
 using BotHallMonitorModule;
 using BotMemeGeneratorModule;
 using BotMiscellaneousModule;
@@ -20,6 +21,7 @@ namespace DiscordBot
     {
         public static FunModule funModule;
         public static AudioModule audioModule;
+        public static GamesModule gamesModule;
         public static SchoolModule schoolModule;
         public static ColorReactModule colorReactModule;
         public static HallMonitorModule hallMonitorModule;
@@ -35,6 +37,7 @@ namespace DiscordBot
                 $"`{Static.Prefix}add-test <date> <subject> <type> <comment>` - Dodaje Test sa datumom <date> (Format: DD/MM/YYYY h/m/s qq, Primer: 14/4/2020 5/30/0 PM), predmetom <subject> (ID Predmeta), tipom <type> (0 - {(TestType)0}, 1 - {(TestType)1}), i komentarom <comment> (nije obavezno) \n" +
                 $"`{Static.Prefix}remove-test <id>` - Skloni test sa ID-em <id>");
             funModule = new FunModule(socketClient, Static.Color, Static.Prefix);
+            gamesModule = new GamesModule(socketClient, Static.Color, Static.Prefix);
             schoolModule = new SchoolModule(socketClient, Static.Color, Static.Prefix);
             colorReactModule = new ColorReactModule(socketClient, Static.Color, Static.Prefix);
             hallMonitorModule = new HallMonitorModule(socketClient, Static.Color, Static.Prefix);
@@ -50,6 +53,7 @@ namespace DiscordBot
         {
             await commandService.AddModulesAsync(Assembly.GetEntryAssembly(), serviceProvider);
             await commandService.AddModulesAsync(typeof(FunModule).Assembly, serviceProvider);
+            await commandService.AddModulesAsync(typeof(GamesModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(AudioModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(SchoolModule).Assembly, serviceProvider);
             await commandService.AddModulesAsync(typeof(ColorReactModule).Assembly, serviceProvider);
