@@ -20,7 +20,7 @@ namespace BotSchoolModule.Commands
             builder.WithCurrentTimestamp()
                 .WithColor(SchoolModule.messageColor)
                 .WithTitle("Testovi")
-                .WithDescription("Lista svih testova koje ce mo da imamo");
+                .WithDescription("Lista svih testova koje cemo da imamo");
 
             foreach (var test in tests)
             {

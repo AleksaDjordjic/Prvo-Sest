@@ -10,6 +10,7 @@ namespace BotAudioModule.Commands
         {
         }
 
+        [Alias("q")]
         [Command("queue", RunMode = RunMode.Async)]
         async Task CommandTask([Remainder] int pages = 1)
         {
