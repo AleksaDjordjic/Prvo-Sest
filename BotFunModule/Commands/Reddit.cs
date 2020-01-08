@@ -4,11 +4,14 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System;
 using Discord;
+using System.Collections.Generic;
 
 namespace BotFunModule.Commands
 {
     public class Reddit : ModuleBase<SocketCommandContext>
     {
+        public static List<long> postedContent = new List<long>();
+
         [Command("reddit", RunMode = RunMode.Async)]
         public async Task CommandTask([Remainder]string subreddit = "programmerhumor")
         {
@@ -21,7 +24,15 @@ namespace BotFunModule.Commands
             var response = JsonConvert.DeserializeObject<RedditResponse>(_resp.Content);
 
             var random = new Random();
-            var post = response.data[random.Next(response.data.Length)];
+            long postID = 0;
+            RedditPost post;
+
+            do
+            {
+                post = response.data[random.Next(response.data.Length)];
+                postID = post.id;
+            }
+            while (postedContent.Contains(postID) == true);
 
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithCurrentTimestamp()
