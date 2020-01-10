@@ -20,11 +20,13 @@ namespace BotMemeGeneratorModule.Commands
             await GenerateMeme(Context, false, memeKey, args);
         }
 
+#if DEBUG
         [Command("make-meme-helpers", RunMode = RunMode.Async)]
         public async Task CommandTaskWithHelpers(string memeKey, params string[] args)
         {
             await GenerateMeme(Context, true, memeKey, args);
         }
+#endif
 
         private async Task GenerateMeme(SocketCommandContext Context, bool drawBoundingBox, string memeKey, params string[] args)
         {
