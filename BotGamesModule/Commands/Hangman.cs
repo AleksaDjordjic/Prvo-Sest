@@ -24,6 +24,12 @@ namespace BotGamesModule.Commands
             var fullUsers = users.ToList();
             fullUsers.Insert(0, Context.User);
 
+            if (fullUsers.Any(x => GameState.gameStates.Any(y => y.Users.Select(x => x.Id).Contains(x.Id))))
+            {
+                await ReplyAsync("The game can not begin, one of the users is already in a game!");
+                return;
+            }
+
             await Begin(fullUsers.ToArray(), Context.User);
         }
 
@@ -81,8 +87,8 @@ namespace BotGamesModule.Commands
                     {
                         if (word == text.Replace("GUESS ", ""))
                         {
-                            await ReplyAsync($"Congrats {gameState.CurrentUser.Mention}! It was `{word.ToLower()}`");
                             EndGame(gameState.GameStateID);
+                            await ReplyAsync($"Congrats {gameState.CurrentUser.Mention}! It was `{word.ToLower()}`");
                             return;
                         }
                         else await ReplyAsync($"Nope, that isn't the word.");
@@ -207,14 +213,17 @@ namespace BotGamesModule.Commands
             {
                 if (correctChars.Contains(character))
                     guessedWord += character;
-                else guessedWord += "_";
+                else if (character == ' ') guessedWord += " ";
+                else guessedWord += "_.";
             }
+            guessedWord.TrimEnd('.');
 
             var failedGuessedChars = "";
             foreach (var guessedChar in guessedChars)
                 failedGuessedChars += guessedChar + " ";
             if (string.IsNullOrEmpty(failedGuessedChars))
                 failedGuessedChars = "None";
+            failedGuessedChars.TrimEnd();
 
             EmbedBuilder builder = new EmbedBuilder();
             builder
@@ -222,8 +231,8 @@ namespace BotGamesModule.Commands
                 .WithColor(GamesModule.messageColor)
                 .WithCurrentTimestamp()
                 .WithDescription(text)
-                .AddField("Word:", guessedWord)
-                .AddField("Failed Guessed Characters:", failedGuessedChars)
+                .AddField("Word:", $"`{guessedWord}`")
+                .AddField("Failed Guessed Characters:", $"`{failedGuessedChars}`")
                 .AddField("Next Player:", gameState.CurrentUser.Mention);
 
             try

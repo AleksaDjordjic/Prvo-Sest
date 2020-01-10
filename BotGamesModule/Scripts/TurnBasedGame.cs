@@ -93,7 +93,6 @@ namespace BotGamesModule.Scripts
             else
             {
                 await channel.SendMessageAsync("Great, the game can start!");
-                await channel.SendMessageAsync("*Now the game should start, but i didnt implement that yet, hold on*");
             }
         }
 
@@ -151,6 +150,7 @@ namespace BotGamesModule.Scripts
         void End_(long gameStateID)
         {
             Context.Client.MessageReceived -= async (arg) => { await Client_MessageReceived(arg, gameStateID); };
+            gameState.End();
             End();
         }
 
