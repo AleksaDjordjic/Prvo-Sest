@@ -1,4 +1,5 @@
 ﻿using BotGamesModule.Scripts;
+using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using System;
@@ -84,11 +85,7 @@ namespace BotGamesModule.Commands
                             EndGame(gameState.GameStateID);
                             return;
                         }
-                        else
-                        {
-                            await ReplyAsync($"Nope, that isn't the word.");
-                            return;
-                        }
+                        else await ReplyAsync($"Nope, that isn't the word.");
                     }
                     else
                     {
@@ -103,7 +100,7 @@ namespace BotGamesModule.Commands
                         {
                             await ReplyAsync("Someone already tried that character...");
                             gameState.NextUser(false);
-                            await  ReplyAsync($"Next player is {gameState.CurrentUser.Mention}");
+                            await DrawHangman(gameState);
                             return;
                         }
 
@@ -119,17 +116,15 @@ namespace BotGamesModule.Commands
                             await ReplyAsync($"Game Over! The word was `{word.ToLower()}`");
                             return;
                         }
-
-                        await DrawHangman();
                     }
 
                     gameState.NextUser(false);
-                    await ReplyAsync($"Next player is {gameState.CurrentUser.Mention}");
+                    await DrawHangman(gameState);
                 });
             }
         }
 
-        async Task DrawHangman()
+        async Task DrawHangman(GameState gameState)
         {
             string text = "";
             switch (guessedChars.Count)
@@ -206,26 +201,39 @@ namespace BotGamesModule.Commands
                     break;
             }
 
-            text += "**Word:**\n";
-
             var wordChars = word.ToCharArray();
-            text += "`";
+            var guessedWord = "";
             foreach (var character in wordChars)
             {
                 if (correctChars.Contains(character))
-                    text += character;
-                else text += "_";
+                    guessedWord += character;
+                else guessedWord += "_";
             }
-            text += "`";
 
-            text += "\n**Guessed Characters:**\n";
-
+            var failedGuessedChars = "";
             foreach (var guessedChar in guessedChars)
-            {
-                text += guessedChar + " ";
-            }
+                failedGuessedChars += guessedChar + " ";
+            if (string.IsNullOrEmpty(failedGuessedChars))
+                failedGuessedChars = "None";
 
-            await ReplyAsync(text);
+            EmbedBuilder builder = new EmbedBuilder();
+            builder
+                .WithTitle("Current Game Status:")
+                .WithColor(GamesModule.messageColor)
+                .WithCurrentTimestamp()
+                .WithDescription(text)
+                .AddField("Word:", guessedWord)
+                .AddField("Failed Guessed Characters:", failedGuessedChars)
+                .AddField("Next Player:", gameState.CurrentUser.Mention);
+
+            try
+            {
+                await ReplyAsync("", false, builder.Build());
+            }
+            catch(Exception e)
+            {
+                await ReplyAsync("Exception on sending embed");
+            }
         }
 
         public override void GameStarted()
