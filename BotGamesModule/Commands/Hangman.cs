@@ -63,7 +63,6 @@ namespace BotGamesModule.Commands
 
                         waitingForHostDM = false;
                         word = arg.Content.ToUpper();
-                        await (await gameState.Host.GetOrCreateDMChannelAsync()).SendMessageAsync("Send me a message of the sentence/word that you want to use");
                         await ReplyAsync("The game can begin now!");
                         gameState.NextUser(false);
                     }
@@ -113,6 +112,13 @@ namespace BotGamesModule.Commands
                             correctChars.Add(c);
                         else
                             guessedChars.Add(c);
+
+                        if(guessedChars.Count >= 7)
+                        {
+                            End(gameState.GameStateID);
+                            await ReplyAsync($"Game Over! The word was `{word.ToLower()}`");
+                            return;
+                        }
 
                         await DrawHangman();
                     }
@@ -226,11 +232,16 @@ namespace BotGamesModule.Commands
         {
             base.GameStarted();
             gameStarted = true;
+
+            Task.Run(async delegate
+            {
+                await (await gameState.Host.GetOrCreateDMChannelAsync()).SendMessageAsync("Send me a message of the sentence/word that you want to use");
+            });
         }
 
-        public override void End()
+        void End(long gameStateID)
         {
-            base.End();
+            EndGame(gameStateID);
             gameStarted = false;
         }
 

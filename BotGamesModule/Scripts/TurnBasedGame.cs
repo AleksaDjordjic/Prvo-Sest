@@ -10,11 +10,15 @@ namespace BotGamesModule.Scripts
 {
     public class TurnBasedGame : ModuleBase<SocketCommandContext>
     {
+        public GameState gameState;
+
         public async Task Begin(SocketUser[] players, SocketUser host)
         {
             long gameStateID = 0;
             GameState gs = new GameState(Context.Guild, Context.Message.Channel, players.ToList(), out gameStateID);
             gs.Start(players.ToList(), host);
+
+            gameState = gs;
 
             await SendStartGameMessage(Context.Message.Channel, players, host);
             Context.Client.MessageReceived += async (arg) => { await Client_MessageReceived(arg, gameStateID); };
