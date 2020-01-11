@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotFunModule", "BotFunModul
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotMemeGeneratorModule", "BotMemeGeneratorModule\BotMemeGeneratorModule.csproj", "{B9271447-5EC4-4730-B893-D29F83862D2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BotGamesModule", "BotGamesModule\BotGamesModule.csproj", "{49B9E7E2-CA04-4654-A2BA-4701FDC97F50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BotGamesModule", "BotGamesModule\BotGamesModule.csproj", "{49B9E7E2-CA04-4654-A2BA-4701FDC97F50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicOnlyDiscordBot", "MusicOnlyDiscordBot\MusicOnlyDiscordBot.csproj", "{6273B5B1-0A29-44B7-88B2-EF76B8CF774C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,10 @@ Global
 		{49B9E7E2-CA04-4654-A2BA-4701FDC97F50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49B9E7E2-CA04-4654-A2BA-4701FDC97F50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49B9E7E2-CA04-4654-A2BA-4701FDC97F50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6273B5B1-0A29-44B7-88B2-EF76B8CF774C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6273B5B1-0A29-44B7-88B2-EF76B8CF774C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6273B5B1-0A29-44B7-88B2-EF76B8CF774C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6273B5B1-0A29-44B7-88B2-EF76B8CF774C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
