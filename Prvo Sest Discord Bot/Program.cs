@@ -15,8 +15,6 @@ namespace DiscordBot
         DiscordSocketClient socketClient;
         CommandService commandService;
         IServiceProvider serviceProvider;
-
-        string botToken = "NjU5MTQwMTA0NDAwNjY2NjI0.XgKA_g.iXEEfZ4mjVvJ86e3l_AQNQRWB58";
         #endregion
 
         static void Main(string[] args)
@@ -50,12 +48,14 @@ namespace DiscordBot
 
             ModuleManager.SetupModules(socketClient, serviceCollection, ref serviceProvider);
 
+            ST.Initialize(socketClient);
+
             socketClient.Log += Log;
 
             await UpdateGameActivity();
             await socketClient.SetStatusAsync(UserStatus.Online);
             await RegisterCommanedsAsync();
-            await socketClient.LoginAsync(TokenType.Bot, botToken);
+            await socketClient.LoginAsync(TokenType.Bot, Token.Value);
             await socketClient.StartAsync();
 
             await Task.Delay(-1);

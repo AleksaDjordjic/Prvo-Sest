@@ -16,8 +16,6 @@ namespace MusicOnlyDiscordBot
         CommandService commandService;
         IServiceProvider serviceProvider;
         AudioModule audioModule;
-
-        string botToken = "NjY1NTg2NDQ1NDY0ODk1NTA3.XhnzEw.s29-NG20Eg9P-yBcOQ8n1MKE-AI";
         #endregion
 
         static void Main(string[] args)
@@ -46,7 +44,7 @@ namespace MusicOnlyDiscordBot
             await UpdateGameActivity();
             await socketClient.SetStatusAsync(UserStatus.Online);
             await RegisterCommanedsAsync();
-            await socketClient.LoginAsync(TokenType.Bot, botToken);
+            await socketClient.LoginAsync(TokenType.Bot, Token.Value);
             await socketClient.StartAsync();
 
             await Task.Delay(-1);

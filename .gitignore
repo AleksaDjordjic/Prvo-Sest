@@ -353,3 +353,6 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+Prvo Sest Discord Bot/ST.cs
+Prvo Sest Discord Bot/Token.cs
+MusicOnlyDiscordBot/Token.cs
